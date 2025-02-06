@@ -55,7 +55,6 @@ func SeedKols() {
 	DB.Model(&Models.Kol{}).Count(&count)
 
 	if count == 0 {
-		fmt.Println("🔹 Seeding dummy KOL data...")
 
 		dummyKols := []Models.Kol{}
 		for i := 1; i <= 30; i++ {
@@ -92,11 +91,10 @@ func SeedKols() {
 
 		// Bulk insert the dummy data
 		if err := DB.Create(&dummyKols).Error; err != nil {
-			log.Fatal("❌ Failed to seed dummy data:", err)
+			log.Fatal("Failed to seed dummy data:", err)
 		}
 
-		fmt.Println("✅ Dummy KOL data inserted successfully!")
 	} else {
-		fmt.Println("✅ KOL table already has data, skipping seeding.")
+		fmt.Println(" KOL table already has data, skipping seeding.")
 	}
 }
