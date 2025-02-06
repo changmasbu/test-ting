@@ -28,13 +28,12 @@ func GetKolLogic(pageIndex, pageSize int) ([]*DTO.KolDTO, int64, error) {
 	ctx := context.Background()
 
 	// Count total records
-	if err := db.WithContext(ctx).Model(&Models.Kol{}).Where("enabled = ?", true).Count(&totalCount).Error; err != nil {
+	if err := db.WithContext(ctx).Model(&Models.Kol{}).Count(&totalCount).Error; err != nil {
 		return nil, 0, errors.New("failed to count total KOLs")
 	}
 
 	// Fetch paginated KOLs
 	if err := db.WithContext(ctx).
-		Where("enabled = ?", true).
 		Limit(pageSize).
 		Offset((pageIndex - 1) * pageSize).
 		Find(&kolEntities).Error; err != nil {
